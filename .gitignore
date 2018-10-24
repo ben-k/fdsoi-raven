@@ -1,6 +1,10 @@
 *.DS_Store
 *.log
 *.aux
-*.pdf
+main.pdf
 *.synctex.gz
 *.idx
+*.bbl
+*.bcf
+*.blg
+*.xml
