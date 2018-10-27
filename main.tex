@@ -26,8 +26,9 @@
 \usepackage[bottom]{footmisc}% places footnotes at page bottom
 
 % TODO - can we get subcaption to work?  Else need to remove use of subfigures
-%\usepackage{subcaption}
-%\usepackage{multirow}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{multirow}
 
 \usepackage[
 binary-units=true,
@@ -51,6 +52,8 @@ backend=biber,
 %maxnames=6,
 %minnames=1,
 ]{biblatex}
+
+\bibliography{references}
 
 % see the list of further useful packages
 % in the Reference Guide
@@ -175,26 +178,26 @@ High interleaving phase counts of 16, 32, or even greater can be used to suppres
 However, this interleaved approach suffers from charge-sharing losses as each unit cell shares charge across the flying capacitance of the others when it switches.
 These intrinsic charge-sharing losses comprise up to 40\% of the overall energy losses in the voltage conversion~\cite{Jevtic2014}.
 
-%\begin{figure}
-%  \centering
-%  \hspace*{\fill}
-%  \begin{subfigure}[t]{0.42\textwidth}
-%  \centering
-%  \includegraphics[width=\textwidth]{3-simultaneous-switching-a}
-%  \caption{}
-%  \label{fig:3-simultaneous-switching-a}
-%  \end{subfigure}
-%  \hspace*{\fill}
-%  \begin{subfigure}[t]{0.42\textwidth}
-%  \centering
-%  \includegraphics[width=\textwidth]{3-simultaneous-switching-b}
-%  \caption{}
-%  \label{fig:3-simultaneous-switching-b}
-%  \end{subfigure}
-%  \hspace*{\fill}
-%  \caption{Interleaved and simultaneous-switching switched-capacitor DC-DC converters~\cite{Zimmer2016}.  In the four-phase interleaved converter shown in (\subref{fig:3-simultaneous-switching-a}), each unit cell switches out of phase with the others, resulting in a relatively flat output voltage but incurring charge-sharing losses.  In the simultaneous-switching converter shown in (\subref{fig:3-simultaneous-switching-b}), all unit cells switch at once, eliminating charge-sharing losses but resulting in a large output voltage ripple.}
-%  \label{fig:3-simultaneous-switching}
-%\end{figure}
+\begin{figure}
+  \centering
+  \hspace*{\fill}
+  \begin{subfigure}[t]{0.42\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{3-simultaneous-switching-a}
+  \caption{}
+  \label{fig:3-simultaneous-switching-a}
+  \end{subfigure}
+  \hspace*{\fill}
+  \begin{subfigure}[t]{0.42\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{3-simultaneous-switching-b}
+  \caption{}
+  \label{fig:3-simultaneous-switching-b}
+  \end{subfigure}
+  \hspace*{\fill}
+  \caption{Interleaved and simultaneous-switching switched-capacitor DC-DC converters~\cite{Zimmer2016}.  In the four-phase interleaved converter shown in (\subref{fig:3-simultaneous-switching-a}), each unit cell switches out of phase with the others, resulting in a relatively flat output voltage but incurring charge-sharing losses.  In the simultaneous-switching converter shown in (\subref{fig:3-simultaneous-switching-b}), all unit cells switch at once, eliminating charge-sharing losses but resulting in a large output voltage ripple.}
+  \label{fig:3-simultaneous-switching}
+\end{figure}
 
 The conversion losses of switched-capacitor voltage regulators are composed of four parts, three of which depend on the switching frequency of the design~\cite{Le2011}.
 The intrinsic charge-sharing loss $P_{cfly}$ of switched-capacitor designs is inversely proportional to the switching frequency of the design, because a slower switching frequency means more charge being transferred for each switching event.
@@ -234,27 +237,27 @@ This would result in wasted energy as the rippling voltage exceeds its minimum, 
 Systems employing SS-SC regulators therefore require the clock supplied to the digital load to adapt to the changing voltage in order to achieve reasonable efficiencies~\cite{Jevtic2014}.
 As shown in Figure~\ref{fig:3-ripple-clocking-b}, by changing the clock on a cycle-by-cycle basis to match the instantaneous operating conditions of the load, the over-voltage losses can be eliminated.
 
-%\begin{figure}
-%  \centering
-%%  \hspace*{\fill}
-%  \begin{subfigure}[t]{0.6\textwidth}
-%  \centering
-%  \includegraphics[width=\textwidth]{3-ripple-clocking-a}
-%  \caption{}
-%  \label{fig:3-ripple-clocking-a}
-%  \end{subfigure}
-%%  \hspace*{\fill}
-%  \par\bigskip
-%  \begin{subfigure}[t]{0.6\textwidth}
-%  \centering
-%  \includegraphics[width=\textwidth]{3-ripple-clocking-b}
-%  \caption{}
-%  \label{fig:3-ripple-clocking-b}
-%  \end{subfigure}
-%%  \hspace*{\fill}
-%  \caption{Sample voltage and clock waveforms of SS-SC systems.  In (\subref{fig:3-ripple-clocking-a}), the clock does not adapt to the voltage ripple, so it must be margined for the lowest supply voltage, resulting in wasted energy at higher voltages.  In (\subref{fig:3-ripple-clocking-b}), the clock adapts to the voltage ripple, allowing the circuit to speed up when the voltage is higher than the minimum.}
-%  \label{fig:3-ripple-clocking}
-%\end{figure}
+\begin{figure}
+  \centering
+%  \hspace*{\fill}
+  \begin{subfigure}[t]{0.6\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{3-ripple-clocking-a}
+  \caption{}
+  \label{fig:3-ripple-clocking-a}
+  \end{subfigure}
+%  \hspace*{\fill}
+  \par\bigskip
+  \begin{subfigure}[t]{0.6\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{3-ripple-clocking-b}
+  \caption{}
+  \label{fig:3-ripple-clocking-b}
+  \end{subfigure}
+%  \hspace*{\fill}
+  \caption{Sample voltage and clock waveforms of SS-SC systems.  In (\subref{fig:3-ripple-clocking-a}), the clock does not adapt to the voltage ripple, so it must be margined for the lowest supply voltage, resulting in wasted energy at higher voltages.  In (\subref{fig:3-ripple-clocking-b}), the clock adapts to the voltage ripple, allowing the circuit to speed up when the voltage is higher than the minimum.}
+  \label{fig:3-ripple-clocking}
+\end{figure}
  
 %\subsection{Regulator Design}
 
