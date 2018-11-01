@@ -83,7 +83,16 @@ backend=biber,
 %
 \maketitle
 
-\abstract{TODO - abstract}
+\abstract{
+Improving the energy efficiency of processor systems-on-chip (SoCs) is key to improving their performance and utility.
+The FD-SOI silicon process enables integrated systems that can deliver dramatic improvements in energy efficiency through system integration.
+This chapter presents the Raven-3 and Raven-4 testchips, fully-integrated and fully-featured SoCs which achieve energy-efficient operation with low overhead.
+RISC-V processors allow for innovation and experimentation in the context of a free, open architecture.
+Integrated switched-capacitor voltage regulators can achieve high conversion efficiency when coupled with adaptive clock generators.
+Custom SRAM macros operate at low supply voltages, enabling wide voltage scaling.
+An integrated body-bias generator allows runtime tuning of threshold voltage for improved performance or reduced leakage.
+Taken together, these innovations showcase the possibilities of FD-SOI technology.
+}
 
 
 %-------------------------------------%
@@ -121,13 +130,13 @@ The replica path is made up only of inverters, with the depth of the path progra
 The generated clock is supplied to all register and SRAM sinks in the core voltage domain.
 
 The IP blocks and their control registers, IO cells, and HTIF logic comprise the uncore voltage domain, which operates at a fixed \SI{1}{\volt} and fixed frequency.
-Because the uncore and core may be asynchronous depending on the operating mode, bisynchrounous FIFOs guard all communication between them as shown in Figure~\ref{fig:5-bisync-fifo}.
+Because the uncore and core may be asynchronous depending on the operating mode, bisynchrounous FIFOs guard all communication between them (see Figure~\ref{fig:5-bisync-fifo}).
 Level shifters are inserted on signals crossing the domains to ensure correct operation as the core voltage varies.
 
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{5-bisync-fifo}
-  \caption{The standard bisynchronous FIFO.}
+  \caption{The standard bisynchronous FIFO used in Raven-3 and Raven-4.}
   \label{fig:5-bisync-fifo}
 \end{figure}
 
@@ -141,7 +150,7 @@ Level shifters are inserted on signals crossing the domains to ensure correct op
 A multivoltage and multiclock design flow was used to construct the processor.
 Figure~\ref{fig:6-raven3-floorplan} shows the processor floorplan, with the larger core voltage domain in red separated from the smaller uncore voltage domain to the right of the chip.
 The custom SRAMs were manually placed within the core voltage domain.
-The SS-SC unit cells surround the core to minimize voltage drop.
+The SC unit cells surround the core to minimize voltage drop.
 Two layers of thick upper-layer metal were dedicated to a power grid, where the core voltage and ground each utilize 25\% of the chip area in each layer.
 Outside the core, these core voltage rails are not necessary, so the input voltages to the converters use the majority of the power routing resources to connect power coming from the pad frame to the converters.
 An annotated die photo of the chip, which was fabricated in \SI{28}{\nano\meter} ultra-thin body and BOX fully depleted silicon-on-insulator (UTTB FD-SOI) technology~\cite{Flatresse2013}, is shown in Figure~\ref{fig:6-raven3-diephoto}.
@@ -195,7 +204,7 @@ Fine tuning resolution and fast response allow adaptive body bias to be incorpor
 %Because the core voltage waveform is difficult to accurately observe off-chip due to parasitics on the measurement path, a waveform measurement circuit was implemented that uses a lightweight sampling approach to statistically reconstruct the waveform~\cite{Cochet2016}.
 %This approach allows core power consumption to be measured with high accuracy via numerical integration.
 %As the current load of the application core can vary over time and has a limited range, a programmable current-mirror load connected to the core voltage domain was added to allow straightforward characterization and measurement of the SS-SC converters and power monitoring circuitry.
-The core clock and SS-SC toggle clock are also connected to output drivers for direct observation.
+The core clock and ]SC toggle clock are also connected to output drivers for direct observation.
 
 \begin{figure}
   \centering
@@ -205,7 +214,7 @@ The core clock and SS-SC toggle clock are also connected to output drivers for d
 \end{figure}
 
 Figure~\ref{fig:6-raven4-floorplan} shows the floorplan of the SoC.
-The design is partitioned into two voltage areas, with the core voltage area supplied by the SS-SC converters placed centrally.
+The design is partitioned into two voltage areas, with the core voltage area supplied by the SC converters placed centrally.
 Numerous additional voltages and clocks are defined to supply both the core and the various analog and mixed-signal blocks that make up the SoC.
 To reduce core insertion delay, the clock generator itself was placed near the center of the core area, and a ``peninsula" of the uncore voltage domain was extended to allow the routing of control signals from the block to the top level of the design hierarchy.
 The location of the core clock multiplexer, which allowed the selection of different core clock sources for test, was specified explicitly and placed near the center of the core area.
@@ -353,7 +362,7 @@ While the arrays also implemented a negative bitline write assist, the assist wa
 \label{sec:sc-dcdc}
 
 The implementation of AVS to improve system energy efficiency requires the delivery of multiple different voltages to different areas of the chip, and the particular voltages used must be dynamically reconfigurable.
-These multiple voltages are supplied by voltage regulators, circuits that convert one voltage to another.
+%These multiple voltages are supplied by voltage regulators, circuits that convert one voltage to another.
 Typically, one or two input voltages will be downconverted by one or more voltage regulators to some number of lower voltages for use by the different voltage areas of the SoC.
 By building regulators into the same die as the SoC they are supplying, system costs are reduced, transition times are shortened due to the smaller passives, and many voltages can be generated from just a few external supplies, ameliorating any issues with IO count.
 However, integrated regulators must achieve high conversion efficiency while minimizing area overhead.
@@ -499,10 +508,10 @@ In the event that one switching event does not sufficiently increase the generat
 %\end{figure}
 
 %-------------------------------------%
-\section{Body-Bias Generation}
+\section{Body Bias Generation}
 
-The ultra-thin body and box (UTBB) FDSOI technology features a high sensitivity (>70mV/V) of transistor threshold voltages to body bias.
-Forward well bias further lowers the thresholds and offers the opportunity for trading off active for leakage power for overall energy efficiency.
+The ultra-thin body and box (UTBB) FDSOI technology features a high sensitivity ($>$\SI{70}{\milli\volt\per\volt}) of transistor threshold voltages to body bias.
+Forward well bias further lowers thresholds and offers the opportunity for trading off active for leakage power to improve overall energy efficiency.
 Optimal body bias can be used for run-time compensation of process, aging, temperature and supply-voltage variations, and to improve energy efficiency.
 
 In contrast to adaptive voltage scaling (AVS), enabling adaptive body-bias (ABB) requires only two additional power grid lines.
@@ -510,14 +519,14 @@ The load for body biasing is almost purely capacitive with low static current.
 Optimal body bias can be used for run-time compensation of process, aging, temperature and supply-voltage variations, or to improve energy efficiency~\cite{Tschanz2002}, but a compact, low power, fast body-bias generator (BBG) is required.
 Raven-4 implements a fully-integrated switched-capacitor solution with a fine voltage step and sub-100ns response time that enables fast, fine-granularity threshold control~\cite{Blagojevic2016}.
 
-The block diagram of the body-bias generator is shown in Figure~\ref{fig:bbgen-blockdiagram}, illustrating its two main modules, the controller and the driver unit.
-The control unit contains a body voltage sensor and control logic.
+The block diagram of the body bias generator is shown in Figure~\ref{fig:bbgen-blockdiagram}, illustrating its two main modules, the controller and the driver unit.
+The controller contains a body voltage sensor and control logic.
 Multiple drivers are placed across the chip to provide rapid response.
 The controller has two main operating modes: transition or ON-mode, and keep-the-value or STEADY-mode.
 In the ON-mode, a body bias sensor is employed.
-This is a direct voltage sample-and-compare circuit clocked at 1 or 2GHz, enabling sub-ns closed loop control over the driver units.
+This is a direct voltage sample-and-compare circuit clocked at \SIrange[range-phrase = --]{1}{2}{\giga\hertz}, enabling sub-ns closed loop control over the driver units.
 A p-well sampler employs a -1:0.8 switched capacitor structure with 20\% gain-error to compensate for the lower PMOS body factor.
-The outputs of the analog upper- and lower-bound rail-to-rail comparators are used to generate mutually exclusive charge or discharge commands.
+The outputs of the analog upper- and lower-bound rail-to-rail comparators generate mutually exclusive charge or discharge commands.
 
 \begin{figure}
   \centering
@@ -541,17 +550,17 @@ The outputs of the analog upper- and lower-bound rail-to-rail comparators are us
   \label{fig:bbgen-blockdiagram}
 \end{figure}
 
-Once the voltages settle inside the bounds, the control unit switches to low-power STEADY-mode and a 0.5MHz clock.
+Once the voltages settle inside the bounds, the control unit switches to low-power STEADY-mode and a \SI{0.5}{\mega\hertz} clock.
 The analog reference voltages are generated with 5-bit two-path poly-resistor DACs in the slow path and a combination of MOS and poly resistors in the fast path.
-This enables 2ns settling of the new upper-bound/lower-bound values and only 400nA of DAC static consumption in STEADY-mode.
-The size of upper-bound/lower-bound window is programmable with a default value of 58mV.
+This enables \SI{2}{\nano\second} settling of the new upper-bound/lower-bound values and only \SI{400}{\nano\ampere} of DAC static consumption in STEADY-mode.
+The size of upper-bound/lower-bound window is programmable with a default value of \SI{58}{\milli\volt}.
 When new digital target values are received, or when voltages leak out of the window, the fast clock unit is engaged within a cycle and the control unit switches into ON-mode to set new body-bias voltages.
 
 The driver units receive four 1-bit digital commands from the control unit to toggle the charging and discharging of the transistor wells.
-The n-well drivers are PMOS and NMOS power switches that provide 0V-1.8V range and high slew rates.
+The n-well drivers are PMOS and NMOS power switches that provide \SIrange[range-phrase = --]{0}{1.8}{\volt} range and high slew rates.
 Figure~\ref{fig:bbgen-negative-vgen} shows the negative voltage generator needed for the p-well, which is based on a switched-capacitor (SC) charge-pump.
-The driver implements a 1: 1 SC charge pump with a negative bootstrap circuit for the negative gate drive signal $G_{bot}$~\cite{Tsukikawa1993}
-The flying capacitor consists of a MOS/MOM stack and occupies the lowest five metal layers to achieve 8fF/?m2 density at 1.8V.
+The driver implements a 1:1 SC charge pump with a negative bootstrap circuit for the negative gate drive signal $G_{bot}$~\cite{Tsukikawa1993}
+The flying capacitor consists of a MOS/MOM stack and occupies the lowest five metal layers to achieve \SI{8}{\femto\farad\per\milli\meter\square} density at \SI{1.8}{\volt}.
 The driver unit design enables straightforward distribution across large body bias domains for a fast and uniform charging profile.
 
 \begin{figure}
@@ -582,9 +591,9 @@ A watchdog circuit assures that metastability does not interrupt the clock.
   \label{fig:clockgen-block}
 \end{figure}
 
-The DLL contains voltage-controlled delay line (VCDL), the phase detector (PD), and the charge pump (CP) with the loop filter (LF).
+The DLL contains a voltage-controlled delay line (VCDL), a phase detector, and a charge pump with loop filter.
 The VCDL converts a single-ended global 2 GHz clock signal into 8 differential signals of the same frequency.
-The single-ended input is converted to a differential pair by using an inverter, followed by cross-coupled differential inverter chains.
+The single-ended input is converted to a differential pair using an inverter followed by cross-coupled differential inverter chains.
 The cross-coupled differential delay unit is composed of two inverters for the main path, and two small inverters that connect the outputs of the main inverters to minimize the phase mismatch between the output nodes.
 
 %The small coupling inverters are a quarter of the size of the main path inverters so as not to distort the signal on the path. To achieve better DLL outputs, the same differential units are used before and after the VCDL as a pre-buffer and a dummy load, respectively. The VCDL generates 16 phase references that have the same interval of 31.25 ps (500 ps/16), where the 16th phase matches the 0th phase. The delay line is designed to have the delay between the 0th reference and the 16th reference to be around 375 ps (75\% of 500 ps) at the nominal voltage of 1 V, so that the rising edge of the 16th reference can be initially located in the low period (between the falling edge and the next rising edge) of the 0th reference. This initial difference must be guaranteed for the correct operation of the DLL. The VCDL is controlled by a low-dropout (LDO) regulator which is composed of a CML- type differential amplifier and a large PMOS cell as a power gate. A large decoupling capacitor is connected to the power node of the VCDL to alleviate the voltage ripple due to logic switching. Since the output voltage level of the VCDL, which is controlled by the local LDO, is usually lower than a nominal voltage (1 V), a level shifter is added to each output signal. The level shifter is followed by a large buffer to minimize interval mismatch between adjacent outputs of the VCDL due to load mismatches.
@@ -605,22 +614,22 @@ Four inverter cells compose the resolution step, and the control signal determin
 The first unit sets the high phase of the clock, which starts at the rising edge and generates the falling edge, while the second unit is for the low phase.
 With this feature, the period and the duty cycle can be independently adjusted.
 %Two TRC units of 5-bit control each are equivalent of 6-bit control delay chains, resulting in a very wide tuning range of 0 to 248 FO1 inverter delays.
-The TRC inverters are connected to the processor supply (VPROC) in order to track the critical path under voltage variations, while other logic remains in an isolated 1 V domain (V1V).
+The TRC inverters are connected to the processor supply in order to track the critical path under voltage variations, while other logic remains in an isolated \SI{1}{V} domain.
 Therefore, 4 FO1 resolution is guaranteed at any supply voltage level, while the total delay is self-adjusted as a function of the supply.
 TRC resolution is related to the phase resolution of the DLL.
-TRC resolution finer than 4 FO1 would eventually be quantized by the DLL with the resolution of 31.25 ps, and will be ignored after passing the quantizer.
-In the particular implementation, the 4 FO1 is about 25 ps at 1 V.
+TRC resolution finer than 4 FO1 would eventually be quantized by the DLL with the resolution of \SI{31.25}{\pico\second}, and will be ignored after passing the quantizer.
+In the particular implementation, the 4 FO1 is about \SI{25}{\pico\second} at \SI{1}{\volt}.
 
 At the top level, the output clock signal is connected to the TRC input.
 Two TRC units delay the rising edge of the input successively by the estimated critical path of the processor through appropriate digital calibration of the number of delay stages, and convert the delayed edges to pulses of short duration for the controller by using the pulse generators (PG).
-The level shifters are located between the TRC and the PG, because the TRC units are on the processor?s voltage domain while the PG and the controller operate at 1 V.
-The TRC goes into sleep mode to reduce the energy consumption when not in use by de-asserting the enable signal (EN).
+The level shifters are located between the TRC and the PG, because the TRC units are on the processor voltage domain while the PG and the controller operate at \SI{1}{\volt}.
+The TRC goes into sleep mode to reduce the energy consumption when not in use by de-asserting the enable signal.
 Since the TRC delay directly determines the next clock period without any additional logic, the circuit achieves a response time of a single cycle.
 
 The controller is composed of an edge detector, an edge selector, and a clock flip-flop.
 The DLL references and the TRC pulses are the inputs to this block.
-The clock output signal (CPOUT) is generated from the flip-flop followed by a large clock buffer.
-The flip-flop data input is connected to VDD, its asynchronous reset input is connected to the first TRC output pulse (TP1), and its clock input (CI) is supplied by the edge selector.
+The clock output signal is generated from the flip-flop followed by a large clock buffer.
+The flip-flop data input is connected to VDD, its asynchronous reset input is connected to the first TRC output pulse, and its clock input is supplied by the edge selector.
 %The first TRC output pulse asynchronously resets the flip-flop to generate the falling edge of the clock output.
 %The second TRC output pulse (TP2), however, is not directly used to generate the rising edge because the rising edge should be synchronized to the DLL references.
 %In the edge detector, the second TRC output pulse samples the DLL references to detect a reference phase that is about to rise.
@@ -641,7 +650,7 @@ Since the DLL references and the TRC output pulse are asynchronous, the flip-flo
 %Without enough width of CI, the clock output signal is eventually set to zero, and may remain low.
 To avoid this, a watchdog block is implemented.
 This logic continuously monitors the status of the clock output signal, and generates an extra pulse for the clock flip-flop input when the clock output signal remains zero for longer than two clock delays of the previous period.
-The clock output (CLKOUT) is synchronized to the global 2 GHz clock (CLKREF) which is also used in the DLL.
+The clock output (CLKOUT) is synchronized to the global \SI{2}{\giga\hertz} clock (CLKREF) which is also used in the DLL.
 The sampled clock output is connected to the gate logic which generates the pulse, PU, that is asserted for a cycle when the sampled clock output goes high.
 The free running counter is reset when PU is asserted, and sends the value to the reference.
 If the clock output is metastable, the counter value exceeds the previous counter value stored in the reference without the PU assertion.
@@ -979,7 +988,7 @@ The free-running generator achieves the same functionality as the adaptive clock
 \begin{figure}
   \centering
   \includegraphics[width=0.9\textwidth]{6-raven4-clockgen-trc}
-  \caption{Measurement results showing the relative difference in voltage-dependent frequency behavior of the four delay banks in the adaptive clock generator~\cite{Keller2017, reprinted with permission} ({\textcopyright} 2017 IEEE, reprinted with permission).}
+  \caption{Measurement results showing the relative difference in voltage-dependent frequency behavior of the four delay banks in the adaptive clock generator~\cite{Keller2017} ({\textcopyright} 2017 IEEE, reprinted with permission).}
   \label{fig:6-raven4-clockgen-trc}
 \end{figure}
 
@@ -1022,12 +1031,12 @@ Without dithering, the processor would need to operate only in the higher mode t
 
 The choice of hopping frequency presents a tradeoff between increased fidelity to the target effective frequency and the more frequent occurrence of transition overheads, which can increase energy consumption.
 In the testchip SS-SC implementation, the energy cost associated with transitions between voltage modes is small because the processor continues to operate as the clock frequency adjusts during the mode transition.
-In high-to-low mode transitions, no charge is wasted, but in some low-to-high transitions, the flying capacitance is charged to \SI{1}{\volt}, consuming wasted energy:
-\begin{equation}
-E_{loss}=\frac{1}{2}C_{fly}\Delta V^2
-\end{equation}
-In the worst-case transition from \SI{1}{\volt} 2/3 mode to \SI{1.8}{\volt} 1/2 mode, the flying capacitance is charged from roughly \SI{0.33}{\volt}, resulting in an $E_{loss}$ of roughly \SI{1}{\nano\joule}.
-At a typical core operating power of \SI{50}{\milli\watt}, this loss is equivalent to the energy consumed by just \SI{20}{\nano\second} of normal operation.
+%In high-to-low mode transitions, no charge is wasted, but in some low-to-high transitions, the flying capacitance is charged to \SI{1}{\volt}, consuming wasted energy:
+%\begin{equation}
+%E_{loss}=\frac{1}{2}C_{fly}\Delta V^2
+%\end{equation}
+%In the worst-case transition from \SI{1}{\volt} 2/3 mode to \SI{1.8}{\volt} 1/2 mode, the flying capacitance is charged from roughly \SI{0.33}{\volt}, resulting in an $E_{loss}$ of roughly \SI{1}{\nano\joule}.
+%At a typical core operating power of \SI{50}{\milli\watt}, this loss is equivalent to the energy consumed by just \SI{20}{\nano\second} of normal operation.
 Accordingly, a hopping frequency of approximately \SI{6}{\micro\second} was chosen.
 This frequency is still quite fast, but is slow enough that transition energy costs can be neglected.
 
@@ -1106,23 +1115,6 @@ The results of the power-management algorithm are therefore compared against con
 The power-management algorithm reduces the energy consumed by 39.8\%, and the fast response incurs negligible ($<$0.2\%) performance penalty compared with this baseline because the fast response minimizes the time spent in the lower voltage mode during a compute-bound region.
 This experiment demonstrates the efficacy of fine-grained AVS at improving energy efficiency with fast workload tracking.
 
-The integrated body-bias generator achieves up to \SI{1.48}{\volt} of positive body-bias in the n-well and up to \SI{1.2}{\volt} of negative body-bias in the p-well.
-The n-well voltage achieves \SI{58}{\milli\volt} resolution and the p-well voltage achieves \SI{72}{\milli\volt} resolution, corresponding in each case to roughly \SI{5}{\milli\volt} of threshold voltage step.
-Figure~\ref{fig:bbgen-results-transient} shows the dynamics of charging and discharging of the wells.
-The n-well reaches high slew rates of \SI{-80}{\milli\volt\per\nano\second} and \SI[retain-explicit-plus]{+65}{\milli\volt\per\nano\second} during charging and discharging.
-The p-well voltage ramps down from \SI{0}{\volt} to \SI{-1.3}{\volt} in \SI{160}{\nano\second} with one driver unit, and in \SI{90}{\nano\second} with two units, switching at \SI{1}{\giga\hertz} in both cases.
-The p-well discharges from \SI{1.4}{\volt} to \SI{0}{\volt} in \SI{70}{\nano\second} with only one unit operating.
-During the ON-mode the BBG drives currents in the range of \SIrange[range-phrase = --]{40}{200}{\milli\ampere}, while in STEADY-mode it sources only \SI{3.3}{\micro\ampere} and \SI{1}{\micro\ampere} from the \SI{1.8}{\volt} and \SI{1}{\volt} supplies respectively.
-High ON-mode currents are averaged over long periods of STEADY-mode and contribute less than \SI{2}{\micro\ampere} in total average current.
-Figure~\ref{fig:bbgen-results-tracking} illustrates the maintenance of target n-well and p-well voltages with short recharge phases when the well voltages drift due to leakage.
-In this case, ON-mode recharge of \SI{5}{\nano\second} duration occurs every \SI{1}{\milli\second} and \SI{0.2}{\milli\second} for the n-well and p-well respectively.
-Figure~\ref{fig:bbgen-results-compensation} demonstrates the variation-compensation and energy-efficiency optimization capability of the BBG.
-The frequency counters are used to extract the switching frequency of the integrated clock generator.
-This frequency is influenced both by the core supply voltage and the body-bias effect.
-A feedback loop adjusts the body-bias voltage so that a constant frequency is maintained even as supply voltage changes.
-The design is able to maintain the target frequency within 1\% while dynamically changing the digital supply voltage in the range of \SIrange[range-phrase = --]{760}{970}{\milli\volt}.
-Note that the p-well and n-well voltages can be asymmetric to achieve robust compensation.
-
 \begin{figure}
   \centering
   %\hspace*{\fill}
@@ -1147,14 +1139,31 @@ Note that the p-well and n-well voltages can be asymmetric to achieve robust com
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{bbgen-results-tracking}
+  \includegraphics[width=0.8\textwidth]{bbgen-results-tracking}
   \caption{Maintaining a constant body bias with occasional recharge to compensate for leakage~\cite{Blagojevic2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:bbgen-results-tracking}
 \end{figure}
 
+The integrated body-bias generator achieves up to \SI{1.48}{\volt} of positive body-bias in the n-well and up to \SI{1.2}{\volt} of negative body-bias in the p-well.
+The n-well voltage achieves \SI{58}{\milli\volt} resolution and the p-well voltage achieves \SI{72}{\milli\volt} resolution, corresponding in each case to roughly \SI{5}{\milli\volt} of threshold voltage step.
+Figure~\ref{fig:bbgen-results-transient} shows the dynamics of charging and discharging of the wells.
+The n-well reaches high slew rates of \SI{-80}{\milli\volt\per\nano\second} and \SI[retain-explicit-plus]{+65}{\milli\volt\per\nano\second} during charging and discharging.
+The p-well voltage ramps down from \SI{0}{\volt} to \SI{-1.3}{\volt} in \SI{160}{\nano\second} with one driver unit and in \SI{90}{\nano\second} with two units, switching at \SI{1}{\giga\hertz} in both cases.
+The p-well discharges from \SI{1.4}{\volt} to \SI{0}{\volt} in \SI{70}{\nano\second} with only one unit operating.
+During the ON-mode the BBG drives currents in the range of \SIrange[range-phrase = --]{40}{200}{\milli\ampere}, while in STEADY-mode it sources only \SI{3.3}{\micro\ampere} and \SI{1}{\micro\ampere} from the \SI{1.8}{\volt} and \SI{1}{\volt} supplies respectively.
+High ON-mode currents are averaged over long periods of STEADY-mode and contribute less than \SI{2}{\micro\ampere} in total average current.
+Figure~\ref{fig:bbgen-results-tracking} illustrates the maintenance of target n-well and p-well voltages with short recharge phases when the well voltages drift due to leakage.
+In this case, ON-mode recharge of \SI{5}{\nano\second} duration occurs every \SI{1}{\milli\second} and \SI{0.2}{\milli\second} for the n-well and p-well respectively.
+Figure~\ref{fig:bbgen-results-compensation} demonstrates the variation-compensation and energy-efficiency optimization capability of the BBG.
+The frequency counters are used to extract the switching frequency of the integrated clock generator.
+This frequency is influenced both by the core supply voltage and the body-bias effect.
+A feedback loop adjusts the body-bias voltage so that a constant frequency is maintained even as supply voltage changes.
+The design is able to maintain the target frequency within 1\% while dynamically changing the digital supply voltage in the range of \SIrange[range-phrase = --]{760}{970}{\milli\volt}.
+Note that the p-well and n-well voltages can be asymmetric to achieve robust compensation.
+
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{bbgen-results-compensation}
+  \includegraphics[width=0.8\textwidth]{bbgen-results-compensation}
   \caption{Adaptive body bias compensation to supply voltage drift~\cite{Blagojevic2016} ({\textcopyright} 2016 IEEE, reprinted with permission).  A constant frequency is maintained by adjusting body bias as supply voltage changes.}
   \label{fig:bbgen-results-compensation}
 \end{figure}
