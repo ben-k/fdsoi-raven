@@ -133,7 +133,7 @@ Level shifters are inserted on signals crossing the domains to ensure correct op
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{6-raven3-floorplan}
+  \includegraphics[width=\textwidth]{6-raven3-floorplan}
   \caption{Annotated floorplan of the Raven-3 testchip~\cite{Zimmer2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:6-raven3-floorplan}
 \end{figure}
@@ -146,15 +146,12 @@ Two layers of thick upper-layer metal were dedicated to a power grid, where the 
 Outside the core, these core voltage rails are not necessary, so the input voltages to the converters use the majority of the power routing resources to connect power coming from the pad frame to the converters.
 An annotated die photo of the chip, which was fabricated in \SI{28}{\nano\meter} ultra-thin body and BOX fully depleted silicon-on-insulator (UTTB FD-SOI) technology~\cite{Flatresse2013}, is shown in Figure~\ref{fig:6-raven3-diephoto}.
 
-% TODO - tweak figure
 \begin{figure}
   \centering
   \includegraphics[width=0.6\textwidth]{6-raven3-diephoto}
   \caption{Annotated die micrograph of the Raven-3 testchip~\cite{Zimmer2016}.}
   \label{fig:6-raven3-diephoto}
 \end{figure}
-
-
 
 \subsection{Raven-4}
 
@@ -202,7 +199,7 @@ The core clock and SS-SC toggle clock are also connected to output drivers for d
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{6-raven4-floorplan}
+  \includegraphics[width=0.9\textwidth]{6-raven4-floorplan}
   \caption{Annotated floorplan of the Raven-4 testchip~\cite{Keller2017} ({\textcopyright} 2017 IEEE, reprinted with permission).}
   \label{fig:6-raven4-floorplan}
 \end{figure}
@@ -215,7 +212,6 @@ The location of the core clock multiplexer, which allowed the selection of diffe
 These improvements combined to reduce core insertion delay by several hundred picoseconds.
 An annotated die photo of the testchip, which was fabricated in \SI{28}{\nano\meter} UTBB FD-SOI, is shown in Figure~\ref{fig:6-raven4-diephoto}.
 
-%TODO - tweak figure
 \begin{figure}
   \centering
   \includegraphics[width=0.6\textwidth]{6-raven4-diephoto}
@@ -244,11 +240,10 @@ The Rocket core has a memory-management unit that supports page-based virtual me
 Both caches are virtually indexed and physically tagged, and have separate TLBs that are accessed in parallel with cache accesses.
 The core has an IEEE 754-2008-compliant floating-point unit that executes single- and double-precision floating-point operations, including fused multiply-add (FMA) operations, with hardware support for subnormal numbers.
 
-%TODO - tweak figure
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{6-raven3-rocket}
-  \caption{A simplified pipeline diagram of the Rocket processor~\cite{Zimmer2016}.}
+  \includegraphics[width=0.6\textwidth]{6-raven3-rocket}
+  \caption{A simplified pipeline diagram of the Rocket processor~\cite{Rocket2016}.}
   \label{fig:6-raven3-rocket}
 \end{figure}
 
@@ -275,7 +270,6 @@ Vector memory instructions are also sent to the vector runahead unit (VRU) by th
 The VRU prefetches data blocks from memory and places them in the L1 data cache ahead of time to increase performance of vector memory operations executed by the VXU.
 The resulting vector accelerator is more similar to traditional Cray-style vector pipelines~\cite{Russel1978} than SIMD units such as those that execute ARM's NEON or Intel's SSE/AVX instruction sets, and delivers high performance and energy efficiency while remaining area efficient.
 
-%TODO - tweak figure
 \begin{figure}
   \centering
   \includegraphics[width=0.65\textwidth]{6-raven3-hwacha}
@@ -291,10 +285,9 @@ The core forgoes caches in favor of an \SI{8}{\kibi\byte} 128-bit-wide scratchpa
 The PMU supports the RV32IM instruction extensions and is fully programmable via the RISC-V software toolchain.
 It is designed to reside in a fixed-voltage ``always-on" domain for use in controlling the operating states of the remaining domains in the system.
 
-%TODO - tweak figure
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{4-zscale}
+  \includegraphics[width=0.4\textwidth]{4-zscale}
   \caption{The Z-scale processor pipeline~\cite{Keller2017}.}
   \label{fig:4-zscale}
 \end{figure}
@@ -349,7 +342,7 @@ While the arrays also implemented a negative bitline write assist, the assist wa
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\textwidth]{sram}
+  \includegraphics[width=\textwidth]{sram}
   \caption{Layout of the custom 8T SRAM macro~\cite{Keller2017} ({\textcopyright} 2017 IEEE, reprinted with permission).}
   \label{fig:sram}
 \end{figure}
@@ -477,7 +470,7 @@ The design re-uses the flying capacitance and switches, reconfiguring the switch
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{3-dcdc-topologies}
+  \includegraphics[width=0.8\textwidth]{3-dcdc-topologies}
   \caption{The four topologies of the reconfigurable SS-SC converter~\cite{Zimmer2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:3-dcdc-topologies}
 \end{figure}
@@ -529,7 +522,7 @@ The outputs of the analog upper- and lower-bound rail-to-rail comparators are us
 \begin{figure}
   \centering
 %  \hspace*{\fill}
-  \begin{subfigure}[t]{0.6\textwidth}
+  \begin{subfigure}[t]{0.9\textwidth}
   \centering
   \includegraphics[width=\textwidth]{bbgen-blockdiagram-a}
   \caption{}
@@ -537,7 +530,7 @@ The outputs of the analog upper- and lower-bound rail-to-rail comparators are us
   \end{subfigure}
 %  \hspace*{\fill}
   \par\bigskip
-  \begin{subfigure}[t]{0.6\textwidth}
+  \begin{subfigure}[t]{0.7\textwidth}
   \centering
   \includegraphics[width=\textwidth]{bbgen-blockdiagram-b}
   \caption{}
@@ -584,7 +577,7 @@ A watchdog circuit assures that metastability does not interrupt the clock.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{clockgen-block}
+  \includegraphics[width=\textwidth]{clockgen-block}
   \caption{A block diagram of the DLL-based adaptive clock generator~\cite{Zimmer2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:clockgen-block}
 \end{figure}
@@ -671,7 +664,7 @@ This design allows the duty cycle of the generated clock to be adjusted.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{3-clockgen}
+  \includegraphics[width=\textwidth]{3-clockgen}
   \caption{A block diagram of the free-running adaptive clock generator~\cite{Keller2017} ~\cite{Keller2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:3-clockgen}
 \end{figure}
@@ -772,7 +765,7 @@ Different processor loads correspond to different optimal $V_{ref}$ because the 
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{6-raven3-dcdc-waveforms}
+  \includegraphics[width=0.7\textwidth]{6-raven3-dcdc-waveforms}
   \caption{Oscilloscope traces of the voltages generated in the four SS-SC operating modes~\cite{Zimmer2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:6-raven3-dcdc-waveforms}
 \end{figure}
@@ -804,7 +797,7 @@ The application core can continue to operate through these mode transitions, dem
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{6-raven3-dcdc-modes}
+  \includegraphics[width=0.7\textwidth]{6-raven3-dcdc-modes}
   \caption{An oscilloscope trace showing the generated core voltage as the SS-SC converter rapidly cycles through each of the four operating modes~\cite{Zimmer2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:6-raven3-dcdc-modes}
 \end{figure}
@@ -819,7 +812,7 @@ As shown in Figure~\ref{fig:6-raven3-dcdc-efficiency}, the measured voltage conv
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.65\textwidth]{6-raven3-dcdc-efficiency}
+  \includegraphics[width=0.7\textwidth]{6-raven3-dcdc-efficiency}
   \caption{A plot demonstrating the system conversion efficiency of the three SS-SC switching modes~\cite{Zimmer2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:6-raven3-dcdc-efficiency}
 \end{figure}
@@ -836,7 +829,7 @@ As shown in Figure~\ref{fig:6-raven3-dcdc-efficiency}, the measured voltage conv
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.55\textwidth]{6-raven3-clock}
+  \includegraphics[width=0.6\textwidth]{6-raven3-clock}
   \caption{Measurements of the adaptive clock generator frequency over different voltages and replica path delay settings~\cite{Zimmer2016} ({\textcopyright} 2016 IEEE, reprinted with permission). }
   \label{fig:6-raven3-clock}
 \end{figure}
@@ -896,7 +889,7 @@ The integrated system is able to achieve high energy efficiencies under the prop
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{6-raven4-waveforms}
+  \includegraphics[width=0.7\textwidth]{6-raven4-waveforms}
   \caption{Oscilloscope traces of the core voltage and clock during an SS-SC mode transition~\cite{Keller2017} ~\cite{Keller2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:6-raven4-waveforms}
 \end{figure}
@@ -946,14 +939,14 @@ Figure~\ref{fig:6-raven4-fbb} shows that the energy of more computationally inte
 \begin{figure}
   \centering
   \hspace*{\fill}
-  \begin{subfigure}[t]{0.4\textwidth}
+  \begin{subfigure}[t]{0.45\textwidth}
   \centering
   \includegraphics[width=\textwidth]{6-raven4-shmoo-a}
   \caption{}
   \label{fig:6-raven4-shmoo-a}
   \end{subfigure}
   \hspace*{\fill}
-  \begin{subfigure}[t]{0.4\textwidth}
+  \begin{subfigure}[t]{0.45\textwidth}
   \centering
   \includegraphics[width=\textwidth]{6-raven4-shmoo-b}
   \caption{}
@@ -966,14 +959,14 @@ Figure~\ref{fig:6-raven4-fbb} shows that the energy of more computationally inte
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\textwidth]{6-raven4-fbb}
+  \includegraphics[width=\textwidth]{6-raven4-fbb}
   \caption{The effect of FBB on different benchmarks with a supply voltage of 0.6V (bypass mode)~\cite{Keller2016} ({\textcopyright} 2016 IEEE, reprinted with permission).  The total energy consumed by each benchmark has been normalized so the relative effects of body bias can be compared.  The minimum-energy point is highlighted for each benchmark.}
   \label{fig:6-raven4-fbb}
 \end{figure}
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\textwidth]{6-raven4-clockgen}
+  \includegraphics[width=0.8\textwidth]{6-raven4-clockgen}
   \caption{Measured comparison of the two clock generators implemented in the Raven-4 testchip~\cite{Keller2017} ({\textcopyright} 2017 IEEE, reprinted with permission).}
   \label{fig:6-raven4-clockgen}
 \end{figure}
@@ -985,7 +978,7 @@ The free-running generator achieves the same functionality as the adaptive clock
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\textwidth]{6-raven4-clockgen-trc}
+  \includegraphics[width=0.9\textwidth]{6-raven4-clockgen-trc}
   \caption{Measurement results showing the relative difference in voltage-dependent frequency behavior of the four delay banks in the adaptive clock generator~\cite{Keller2017, reprinted with permission} ({\textcopyright} 2017 IEEE, reprinted with permission).}
   \label{fig:6-raven4-clockgen-trc}
 \end{figure}
@@ -997,14 +990,14 @@ The wide variation in voltage-dependent delays between the different delay banks
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{6-raven4-waveforms-powermeas}
+  \includegraphics[width=0.7\textwidth]{6-raven4-waveforms-powermeas}
   \caption{Oscilloscope traces showing the rippling core supply voltage and the SS-SC toggle clock~\cite{Keller2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:6-raven4-waveforms-powermeas}
 \end{figure}
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.6\textwidth]{6-raven4-powermeas}
+  \includegraphics[width=0.7\textwidth]{6-raven4-powermeas}
   \caption{Measurement results showing the correlation between SS-SC toggle frequency and measured core power~\cite{Keller2017} ({\textcopyright} 2017 IEEE, reprinted with permission).}
   \label{fig:6-raven4-powermeas}
 \end{figure}
@@ -1014,7 +1007,7 @@ The correlation is monotonic and approximately linear for each of the three conv
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{6-raven4-freqhopping}
+  \includegraphics[width=\textwidth]{6-raven4-freqhopping}
   \caption{Oscilloscope traces showing the core voltage as the frequency hopping algorithm is applied with two different frequency targets~\cite{Keller2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:6-raven4-freqhopping}
 \end{figure}
@@ -1041,7 +1034,7 @@ This frequency is still quite fast, but is slow enough that transition energy co
 \begin{figure}
   \centering
   %\hspace*{\fill}
-  \begin{subfigure}[t]{0.8\textwidth}
+  \begin{subfigure}[t]{\textwidth}
   \centering
   \includegraphics[width=\textwidth]{6-raven4-voltage-dithering-a}
   \caption{}
@@ -1049,7 +1042,7 @@ This frequency is still quite fast, but is slow enough that transition energy co
   \end{subfigure}
   %\hspace*{\fill}
   \par\bigskip
-  \begin{subfigure}[t]{0.8\textwidth}
+  \begin{subfigure}[t]{\textwidth}
   \centering
   \includegraphics[width=\textwidth]{6-raven4-voltage-dithering-b}
   \caption{}
@@ -1079,7 +1072,7 @@ This implies that in some cases it is more efficient to operate at a single mode
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{6-raven4-power-tracking}
+  \includegraphics[width=\textwidth]{6-raven4-power-tracking}
   \caption{Measurement results showing a power envelope tracking program executing on the PMU~\cite{Keller2017} ({\textcopyright} 2017 IEEE, reprinted with permission). The frequency of the core is adjusted in response to measured changes in core power so that the core operates as quickly as possible without exceeding a time-varying, user-specified power budget.}
   \label{fig:6-raven4-power-tracking}
 \end{figure}
@@ -1093,7 +1086,7 @@ In this way, the best possible performance is automatically obtained while the u
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{6-raven4-avs}
+  \includegraphics[width=\textwidth]{6-raven4-avs}
   \caption{Oscilloscope traces showing an FG-AVS algorithm running on the PMU~\cite{Keller2017} ({\textcopyright} 2017 IEEE, reprinted with permission).}
   \label{fig:6-raven4-avs}
 \end{figure}
@@ -1133,7 +1126,7 @@ Note that the p-well and n-well voltages can be asymmetric to achieve robust com
 \begin{figure}
   \centering
   %\hspace*{\fill}
-  \begin{subfigure}[t]{0.8\textwidth}
+  \begin{subfigure}[t]{\textwidth}
   \centering
   \includegraphics[width=\textwidth]{bbgen-results-transient-a}
   \caption{}
@@ -1141,7 +1134,7 @@ Note that the p-well and n-well voltages can be asymmetric to achieve robust com
   \end{subfigure}
   %\hspace*{\fill}
   \par\bigskip
-  \begin{subfigure}[t]{0.8\textwidth}
+  \begin{subfigure}[t]{\textwidth}
   \centering
   \includegraphics[width=\textwidth]{bbgen-results-transient-b}
   \caption{}
@@ -1154,14 +1147,14 @@ Note that the p-well and n-well voltages can be asymmetric to achieve robust com
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{bbgen-results-tracking}
+  \includegraphics[width=\textwidth]{bbgen-results-tracking}
   \caption{Maintaining a constant body bias with occasional recharge to compensate for leakage~\cite{Blagojevic2016} ({\textcopyright} 2016 IEEE, reprinted with permission).}
   \label{fig:bbgen-results-tracking}
 \end{figure}
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.8\textwidth]{bbgen-results-compensation}
+  \includegraphics[width=\textwidth]{bbgen-results-compensation}
   \caption{Adaptive body bias compensation to supply voltage drift~\cite{Blagojevic2016} ({\textcopyright} 2016 IEEE, reprinted with permission).  A constant frequency is maintained by adjusting body bias as supply voltage changes.}
   \label{fig:bbgen-results-compensation}
 \end{figure}
